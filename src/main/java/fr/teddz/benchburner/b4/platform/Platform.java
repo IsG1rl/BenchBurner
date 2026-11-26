@@ -110,7 +110,6 @@ return screen == null || screen instanceof TitleScreen || screen instanceof Paus
 }
 
 private static boolean isKeyDown(Minecraft client, InputConstants.Key key) {
-long window = client.getWindow().handle();
 return key.getValue() >= 0 && InputConstants.isKeyDown(key.getValue());
 }
 
