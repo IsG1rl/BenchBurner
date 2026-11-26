@@ -21,7 +21,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,15 +54,15 @@ overlay);
 
 KeyMapping.Category category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("benchburner", "main"));
 WatchedKeyMapping benchmarkKey = (WatchedKeyMapping) KeyMappingHelper.registerKeyMapping(new WatchedKeyMapping(
-"key.benchburner.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, category));
+"key.benchburner.toggle", InputConstants.Type.KEYBOARD, InputConstants.KEY_R, category));
 WatchedKeyMapping settingsKey = (WatchedKeyMapping) KeyMappingHelper.registerKeyMapping(new WatchedKeyMapping(
-"key.benchburner.config", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, category));
+"key.benchburner.config", InputConstants.Type.KEYBOARD, InputConstants.KEY_K, category));
 WatchedKeyMapping exportKey = (WatchedKeyMapping) KeyMappingHelper.registerKeyMapping(new WatchedKeyMapping(
-"key.benchburner.export", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_N, category));
+"key.benchburner.export", InputConstants.Type.KEYBOARD, InputConstants.KEY_N, category));
 WatchedKeyMapping worldKey = (WatchedKeyMapping) KeyMappingHelper.registerKeyMapping(new WatchedKeyMapping(
-"key.benchburner.world", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_B, category));
+"key.benchburner.world", InputConstants.Type.KEYBOARD, InputConstants.KEY_B, category));
 WatchedKeyMapping overlayKey = (WatchedKeyMapping) KeyMappingHelper.registerKeyMapping(new WatchedKeyMapping(
-"key.benchburner.overlay", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_O, category));
+"key.benchburner.overlay", InputConstants.Type.KEYBOARD, InputConstants.KEY_O, category));
 
 BenchWorld benchWorld = new BenchWorld(result -> writeCsv(csvExporter, result));
 benchWorld.ensureExtracted();
@@ -75,13 +74,13 @@ while (exportKey.consumeClick()) {
 exportLastBenchmark(benchmark, csvExporter);
 }
 boolean worldDown = isKeyDown(client, worldKey.watchedKey());
-if (worldDown && !this.worldKeyDown && allowsMenuKeys(client.screen)) {
+if (worldDown && !this.worldKeyDown && allowsMenuKeys(client.gui.screen())) {
 benchWorld.requestStart(client);
 }
 this.worldKeyDown = worldDown;
 boolean settingsDown = isKeyDown(client, settingsKey.watchedKey());
-if (settingsDown && !this.settingsKeyDown && allowsMenuKeys(client.screen)) {
-openSettings(client, client.screen);
+if (settingsDown && !this.settingsKeyDown && allowsMenuKeys(client.gui.screen())) {
+openSettings(client, client.gui.screen());
 }
 this.settingsKeyDown = settingsDown;
 boolean overlayDown = isKeyDown(client, overlayKey.watchedKey());
@@ -112,7 +111,7 @@ return screen == null || screen instanceof TitleScreen || screen instanceof Paus
 
 private static boolean isKeyDown(Minecraft client, InputConstants.Key key) {
 long window = client.getWindow().handle();
-return key.getValue() >= 0 && GLFW.glfwGetKey(window, key.getValue()) == GLFW.GLFW_PRESS;
+return key.getValue() >= 0 && InputConstants.isKeyDown(key);
 }
 
 private static final class WatchedKeyMapping extends KeyMapping {
