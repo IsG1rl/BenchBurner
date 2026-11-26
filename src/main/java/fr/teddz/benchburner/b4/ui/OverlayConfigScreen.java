@@ -24,6 +24,8 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import fr.teddz.benchburner.config.ConfigData;
 import fr.teddz.benchburner.config.ConfigStore;
 import fr.teddz.benchburner.config.PresetData;
