@@ -24,8 +24,6 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 
-import org.lwjgl.glfw.GLFW;
-
 import fr.teddz.benchburner.config.ConfigData;
 import fr.teddz.benchburner.config.ConfigStore;
 import fr.teddz.benchburner.config.PresetData;
@@ -333,7 +331,7 @@ return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 
 @Override
 public boolean keyPressed(KeyEvent event) {
-if (event.key() == GLFW.GLFW_KEY_ESCAPE && this.presetMenu.isOpen()) {
+if (event.key() == InputConstants.KEY_ESCAPE && this.presetMenu.isOpen()) {
 this.presetMenu.close();
 return true;
 }
@@ -346,7 +344,7 @@ Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(SoundEv
 
 @Override
 public void onClose() {
-this.minecraft.setScreen(this.parent);
+this.minecraft.gui.setScreen(this.parent);
 }
 
 @Override
