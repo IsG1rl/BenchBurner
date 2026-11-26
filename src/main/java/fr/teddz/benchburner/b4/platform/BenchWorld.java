@@ -67,7 +67,7 @@ void tick(Minecraft client, ConfigData data, BenchmarkManager benchmark) {
 if (this.state == State.IDLE) return;
 if (client.level == null) {
 if (this.state == State.PENDING_OPEN) {
-if (client.screen instanceof TitleScreen) open(client);
+if (client.gui.screen() instanceof TitleScreen) open(client);
 return;
 }
 if (this.state == State.LOADING || this.state == State.WARMUP || this.state == State.RECORDING) {
