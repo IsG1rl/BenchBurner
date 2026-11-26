@@ -111,7 +111,7 @@ return screen == null || screen instanceof TitleScreen || screen instanceof Paus
 
 private static boolean isKeyDown(Minecraft client, InputConstants.Key key) {
 long window = client.getWindow().handle();
-return key.getValue() >= 0 && InputConstants.isKeyDown(key);
+return key.getValue() >= 0 && InputConstants.isKeyDown(key.getValue());
 }
 
 private static final class WatchedKeyMapping extends KeyMapping {
@@ -125,7 +125,7 @@ return this.key;
 }
 
 private void openSettings(Minecraft client, Screen returnScreen) {
-client.setScreen(new OverlayConfigScreen(configStore, returnScreen));
+client.gui.setScreen(new OverlayConfigScreen(configStore, returnScreen));
 }
 
 private static void toggleBenchmark(BenchmarkManager benchmark, CsvExporter csvExporter) {
@@ -173,6 +173,6 @@ return "Benchmark over: avg " + String.format(Locale.ROOT, "%.1f", summary.avera
 }
 
 static void message(String text) {
-Minecraft.getInstance().gui.getChat().addClientSystemMessage(Component.literal(text));
+Minecraft.getInstance().gui.hud.getChat().addClientSystemMessage(Component.literal(text));
 }
 }
